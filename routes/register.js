@@ -25,10 +25,10 @@ router.post("/", async (req, res, next) => {
                     return res.json({ status: 'error', error: 'Invalid password' })
                 }
 
-                if (plainPassword.length < 7) {
+                if (plainPassword.length < 8) {
                     return res.json({
                         status: 'error',
-                        error: 'Password too small. Should be atleast 6 characters'
+                        error: 'Password too small. Should be atleast 7 characters'
                     })
                 }
 
