@@ -19,7 +19,6 @@ const { email, password } = req.body
 	}
 
 	if (user.password===password) {
-		// the username, password combination is successful
 
 		const token = jwt.sign(
 			{
