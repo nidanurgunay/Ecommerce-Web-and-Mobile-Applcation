@@ -18,7 +18,7 @@ const { email, password } = req.body
 		return res.json({ status: 'error', error: 'Invalid email/password' })
 	}
 
-	if (user.password===password) {
+	if (await bcrypt.compare(password, user.password)) {
 
 		const token = jwt.sign(
 			{
@@ -28,7 +28,7 @@ const { email, password } = req.body
 			JWT_SECRET
 		)
 
-		return res.json({ status: 'ok', data: token })
+		return res.json({ status: 'ok', token: token })
 	}
 
     res.json({ status: 'error', error: 'Invalid username/password' })

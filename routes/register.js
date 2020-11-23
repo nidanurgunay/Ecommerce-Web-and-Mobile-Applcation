@@ -9,6 +9,8 @@ const { Console } = require('console');
 router.use(bodyParser.json());
 let d = new Date();
 
+const JWT_SECRET = 'sdjkfh8923ysgdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk'
+
 router.post("/", async (req, res, next) => {
 
     User.findOne({ email: req.body.email })
@@ -30,42 +32,32 @@ router.post("/", async (req, res, next) => {
                     })
                 }
 
-                user = new User({
-                    email: e_mail,
-                    gender: gen,
-                    password: plainPassword,
-                    creationTime: d.getUTCDate(),
-                    modificationTime: d.getUTCDate(),
-                });
-
+               
                 console.log("size ", plainPassword.length, "type  ", typeof plainPassword);
 
-                // bcrypt.hash(plainPassword.toString(),10,(err, hash) => {
-                //     if (err) {
-                //       return res.status(500).json({
-                //         error: err
-                //       });
-                //     } else {
-                //       user.password=hash
-                //       }
+                try {
+                   
+                    const hashedpassword= await bcrypt.hash(plainPassword,10)
+                    console.log(hashedpassword)
 
-                //     });
-                
+                    
+                    const user = new User({
+                        email: e_mail,
+                        gender: gen,
+                        password: hashedpassword,
+                        creationTime: d.getUTCDate(),
+                        modificationTime: d.getUTCDate(),
+                    });
+                    const token = jwt.sign({ user }, JWT_SECRET);
 
-                // console.log("hashed  ", password);
-                // console.log(bcrypt.hash(plainPassword.toString(), 10));
-                // console.log("hsddsk", user.password);
-                
-                
-                
-                const token = jwt.sign({ user }, 'my token');
-
-                await user.save().then(() => {
-                    res.json({ token: token });
-                }).catch((err) => {
-                    res.json("Kaydetme İşleminde Hata Oluştu.", err.code);
-                });
-
+                    await user.save().then(() => {
+                        res.json({ token: token });
+                    }).catch((err) => {
+                        res.json("Kaydetme İşleminde Hata Oluştu.", err.code);
+                    });
+                }catch {
+                    res.status(500).send("hataa")
+                }
             }
 
 
