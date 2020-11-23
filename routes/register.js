@@ -45,8 +45,8 @@ router.post("/", async (req, res, next) => {
                         email: e_mail,
                         gender: gen,
                         password: hashedpassword,
-                        creationTime: d.getUTCDate(),
-                        modificationTime: d.getUTCDate(),
+                        creationTime: d,
+                        modificationTime: d,
                     });
                     const token = jwt.sign({ user }, JWT_SECRET);
 
@@ -59,16 +59,7 @@ router.post("/", async (req, res, next) => {
                     res.status(500).send("hataa")
                 }
             }
-
-
-        })
-
-
-
-
-
-
-    
+        })    
 });
 
 

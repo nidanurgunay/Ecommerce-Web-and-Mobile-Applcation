@@ -7,7 +7,7 @@ var logger = require('morgan');
 
 var loginRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
-
+var changePasswordRouter = require('./routes/changePassword');
 var app = express();
 
 const db = require("./helper/db")();
@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
-
+app.use('/changePassword',changePasswordRouter);
 
 
 
