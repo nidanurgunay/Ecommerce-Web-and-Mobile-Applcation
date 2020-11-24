@@ -11,10 +11,12 @@ var changePasswordRouter = require('./routes/changePassword');
 var app = express();
 
 const db = require("./helper/db")();
-
+app.use(bodyParser.json());
 /******email verification */
+
 app.use(cors());
 var authRoutes=require('./routes/auth');
+
 app.use('/activateEMail',authRoutes)
 
 

@@ -1,7 +1,6 @@
 
 express = require('express');
 var router = express.Router();
-var bodyParser = require('body-parser');
 var bcrypt = require('bcryptjs');
 var User = require('../models/user');
 var jwt = require('jsonwebtoken');
@@ -11,6 +10,7 @@ let d = new Date();
 const JWT_SECRET = 'sdjkfh8923ysgdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk'
 
 router.post("/", async (req, res, next) => {
+    console.log(req.body)
     const { email, password } = req.body
     const user = await User.findOne({ email }).lean()
 
@@ -23,9 +23,12 @@ router.post("/", async (req, res, next) => {
         const token = jwt.sign(
             {
                 id: user._id,
-                username: user.username
+                email: user.email,
+                password:user.password
+
+               
             },
-            JWT_SECRET
+            JWT_SECRET,
         )
 
         return res.json({ status: 'ok', token: token })

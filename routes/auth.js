@@ -12,12 +12,6 @@ let d = new Date();
 
 const JWT_SECRET = 'sdjkfh8923ysgdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk'
 
-/**********************email */
-const mailgun = require("mailgun-js");
-const passport = require('passport');
-const DOMAIN = 'sandbox387fdc914bd44fb7a7ff7c5cf325a53a.mailgun.org';
-const API_KEY = '75ed49265d30f00af00ff7ef24c28fba-360a0b2c-97875b1a'
-const mg = mailgun({ apiKey: API_KEY, domain: DOMAIN });
 
 
 router.post("/", async (req, res) => {
