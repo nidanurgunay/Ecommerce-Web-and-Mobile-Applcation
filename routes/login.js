@@ -11,26 +11,28 @@ let d = new Date();
 const JWT_SECRET = 'sdjkfh8923ysgdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk'
 
 router.post("/", async (req, res, next) => {
-const { email, password } = req.body
-	const user = await User.findOne({ email }).lean()
+    const { email, password } = req.body
+    const user = await User.findOne({ email }).lean()
 
-	if (!user) {
-		return res.json({ status: 'error', error: 'Invalid email/password' })
-	}
+    if (!user) {
+        return res.json({ status: 'error', error: 'Invalid email/password' })
+    }
 
-	if (await bcrypt.compare(password, user.password)) {
+    if (await bcrypt.compare(password, user.password)) {
 
-		const token = jwt.sign(
-			{
-				id: user._id,
-				username: user.username
-			},
-			JWT_SECRET
-		)
+        const token = jwt.sign(
+            {
+                id: user._id,
+                username: user.username
+            },
+            JWT_SECRET
+        )
 
-		return res.json({ status: 'ok', token: token })
-	}
+        return res.json({ status: 'ok', token: token })
+    }
 
     res.json({ status: 'error', error: 'Invalid username/password' })
 });
+
+
 module.exports = router;
