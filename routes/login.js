@@ -2,7 +2,7 @@
 express = require('express');
 var router = express.Router();
 var bcrypt = require('bcryptjs');
-var User = require('../models/user');
+var User = require('../models/users');
 var jwt = require('jsonwebtoken');
 
 let d = new Date();

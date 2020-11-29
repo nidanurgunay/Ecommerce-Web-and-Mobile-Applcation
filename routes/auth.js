@@ -2,15 +2,13 @@ express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var bcrypt = require('bcryptjs');
-var User = require('../models/user');
+var User = require('../models/users');
 var jwt = require('jsonwebtoken');
-const { response } = require('../app');
-const { Console } = require('console');
 router.use(bodyParser.json());
 
 let d = new Date();
 
-const JWT_SECRET = 'sdjkfh8923ysgdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk'
+const JWT_SECRET = 'sdjkfh8923yssghjadgasjht#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk'
 
 
 
@@ -43,10 +41,10 @@ router.post("/", async (req, res) => {
                         creationTime: d,
                         modificationTime: d,
                     });
-                  
+                    const token2 = jwt.sign({ email, password, gender }, JWT_SECRET, { expiresIn: '40m' });
                     console.log(newUser);
                     await newUser.save().then(() => {
-                            res.json({ token: token });
+                            res.json({ token: token2 });
                         }).catch((error) => {
                             res.status(500).send("Kaydetme İşleminde Hata Oluştu.");
                         });

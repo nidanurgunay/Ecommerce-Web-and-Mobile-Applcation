@@ -2,10 +2,8 @@ express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var bcrypt = require('bcryptjs');
-var User = require('../models/user');
+var User = require('../models/users');
 var jwt = require('jsonwebtoken');
-const { response } = require('../app');
-const { Console } = require('console');
 router.use(bodyParser.json());
 
 
