@@ -36,8 +36,7 @@ router.post('/', async (req, res) => {
 			{ _id },
 			
 			{ "password": npassword, modificationDate: d} 
-                 
-			
+		
 			
 		)
 		res.json({ status: 'ok' })

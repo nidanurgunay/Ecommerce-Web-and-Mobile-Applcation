@@ -24,11 +24,9 @@ router.post("/", async (req, res, next) => {
             {
                 id: user._id,
                 email: user.email,
-                password:user.password
-
-               
+                password:user.password            
             },
-            JWT_SECRET,
+            JWT_SECRET, {expiresIn:'1h'}
         )
 
         return res.json({ status: 'ok', token: token })

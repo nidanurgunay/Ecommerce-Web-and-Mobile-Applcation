@@ -2,9 +2,21 @@ express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var Product = require('../models/products');
-var expressAsyncHandler= require('express-async-handler');
+var expressAsyncHandler = require('express-async-handler');
 router.use(bodyParser.json());
 let d = new Date();
+
+///// 
+///product manager için post
+//delete product 
+//put product 
+//get by id
+//get by category
+//get by 
+
+
+
+
 router.post("/", async (req, res, next) => {
 
     const product = new Product({
@@ -74,19 +86,21 @@ router.get('/categories', async (req, res) => {
     res.send(categories);
 });
 
-router.get('/:id', expressAsyncHandler( async (req, res) => {
+
+router.get('/:id', expressAsyncHandler(async (req, res) => {
     var mongoose = require("mongoose");
     console.log(id)
-    if(mongoose.Types.ObjectId.isValid(req.params.id)){
-    const product = await Product.findById(req.params.id)
-    if (product) {
-        res.send(product);
-    } else {
-        res.status(404).send({ message: 'Product Not Found' });
+    if (mongoose.Types.ObjectId.isValid(req.params.id)) {
+        const product = await Product.findById(req.params.id)
+
+        if (product) {
+            res.send(product);
+        } else {
+            res.status(404).send({ message: 'Product Not Found' });
+        }
     }
-}
-else
-res.status(404).send({ message: 'Invalid Id' });
+    else
+        res.status(404).send({ message: 'Invalid Id' });
 
 }));
 
