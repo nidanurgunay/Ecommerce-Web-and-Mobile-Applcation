@@ -25,7 +25,7 @@ var changePasswordRouter = require('./routes/changePassword');
 app.use('/changePassword', changePasswordRouter);
 
 var authRoutes=require('./routes/auth');
-app.use('/activateEMail',authRoutes)
+app.use('/activateEmail',authRoutes)
 
 var productRouter =require('./routes/product');
 app.use('/product', productRouter)
