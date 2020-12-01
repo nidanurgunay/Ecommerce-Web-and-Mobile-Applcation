@@ -28,6 +28,9 @@ app.use("/activateEmail", authRoutes);
 var productRouter = require("./routes/product");
 app.use("/product", productRouter);
 
+var productRouter = require("./routes/basket");
+app.use("/basket", productRouter);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
