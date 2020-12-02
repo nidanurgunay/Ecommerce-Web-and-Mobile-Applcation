@@ -1,6 +1,11 @@
 var mongoose = require("mongoose");
 var basketSchema = new mongoose.Schema({
-  user: String,
+  //userAdressId: databasede baglıycaz.
+  //basketId:
+  totalPrice: Number,
+  creditCardNo: Number,
+  cvv: Number,
+  creditExpirationDate: Number, // date nasıl ona bakın...
 
   //   users: {
   //     type: mongoose.SchemaTypes.ObjectId,
