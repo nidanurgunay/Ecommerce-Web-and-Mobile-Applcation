@@ -42,8 +42,6 @@ router.post("/", async (req, res, next) => {
 
                 try {
 
-                
-
                 const token = jwt.sign({ email, password, gender }, JWT_SECRET, { expiresIn: '40m' });
                 console.log("token::", token)
                 const CLIENT_URL = 'http://localhost:5002'
