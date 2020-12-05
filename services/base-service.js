@@ -14,11 +14,11 @@ module.exports = class Service {
   async find(itemId) {
     return this.model.findById(itemId);
   }
-  async findCategoryProducts(category) {
-    console.log(" hajkahajk" ,category);
-    console.log(typeof(category));
-    return this.model.find({category:category});
+
+  async findCategoryProducts(Category) {
+    return this.model.find({category:Category});
   }
+
   async findGenderProducts(gender) {
     // 
     console.log(" hajkahajk" ,gender);

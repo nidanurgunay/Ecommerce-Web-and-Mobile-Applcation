@@ -28,7 +28,11 @@ router.get("/:id", async (req, res) => {
   var product = await Product.find(req.params.id);
   res.send(product);
 });
+
+
+
 router.get("/category/:category", async (req, res) => {
+
   var product = await Product.findCategoryProducts(req.params.category);
   res.send(product);
 });
