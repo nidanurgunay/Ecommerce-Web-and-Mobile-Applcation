@@ -28,6 +28,16 @@ router.get("/:id", async (req, res) => {
   var product = await Product.find(req.params.id);
   res.send(product);
 });
+router.get("/category/:category", async (req, res) => {
+  var product = await Product.findCategoryProducts(req.params.category);
+  res.send(product);
+});
+
+router.get("/gender/:gender", async (req, res) => {
+  console.log("req param gender", req.params.gender);
+  var product = await Product.findGenderProducts(req.params.gender);
+  res.send(product);
+});
 
 router.post("/", async (req, res) => {
   var product = await Product.add(req.body);
