@@ -1,8 +1,13 @@
 var mongoose = require("mongoose");
-var basketSchema = new mongoose.Schema({
+var orderSchema = new mongoose.Schema({
   //userAdressId: databasede baglıycaz.
-  //basketId:
-  totalPrice: Number,
+  basket: { type: mongoose.SchemaTypes.ObjectId, ref: "baskets", required: true },
+  user: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "users",
+  },
+
+  totalPrice: Number, /// total price hesaplama fonksiyonu......
   creditCardNo: Number,
   cvv: Number,
   creditExpirationDate: Number, // date nasıl ona bakın...
@@ -29,6 +34,6 @@ var basketSchema = new mongoose.Schema({
   //   ],
 });
 // basketSchema.plugin(require("mongoose-autopopulate"));
-var basketModel = mongoose.model("Basket", basketSchema);
+var orderModel = mongoose.model("Order", orderSchema);
 
 module.exports = basketModel;
