@@ -14,6 +14,9 @@ var basketSchema = new Schema(
           type: mongoose.SchemaTypes.ObjectId,
           ref: "products",
           required: true,
+          // autopopulate: {
+          //   maxDepth: 1,
+          // },
         },
       },
     ],
@@ -22,5 +25,5 @@ var basketSchema = new Schema(
     timestamps: true,
   }
 );
-// basketSchema.plugin(require("mongoose-autopopulate"));
+//basketSchema.plugin(require("mongoose-autopopulate"));
 module.exports = mongoose.model("Basket", basketSchema);
