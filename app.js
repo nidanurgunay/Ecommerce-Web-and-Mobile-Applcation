@@ -1,29 +1,56 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var bodyParser = require('body-parser')
-const cors = require('cors')
-var loginRouter = require('./routes/login');
-var registerRouter = require('./routes/register');
-var changePasswordRouter = require('./routes/changePassword');
+var createError = require("http-errors");
+var express = require("express");
+var path = require("path");
+var cookieParser = require("cookie-parser");
+var logger = require("morgan");
+var bodyParser = require("body-parser");
+const cors = require("cors");
+const db = require("./helper/db")();
 var app = express();
 
-const db = require("./helper/db")();
 app.use(bodyParser.json());
-/******email verification */
 
 app.use(cors());
-var authRoutes=require('./routes/auth');
 
-app.use('/activateEMail',authRoutes)
+/////ROUTES//////////
+var loginRouter = require("./routes/login");
+app.use("/login", loginRouter);
 
+var registerRouter = require("./routes/register");
+app.use("/register", registerRouter);
 
-/***************** */
+var changePasswordRouter = require("./routes/changePassword");
+app.use("/changePassword", changePasswordRouter);
 
+var authRoutes = require("./routes/auth");
+app.use("/activateEmail", authRoutes);
 
+var productRouter = require("./routes/product");
+app.use("/product", productRouter);
 
+var basketRouter = require("./routes/basket");
+app.use("/basket", basketRouter);
+
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  next(createError(404));
+});
+
+// error handler
+app.use(function (err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  console.log(err);
+  res.json({ error: "error" });
+});
+
+app.listen(5002, () => {
+  console.log("Server listening on port 5002");
+});
 
 /**************GOOGLE AUTHENTICATION */
 // const passport = require('passport');
@@ -52,7 +79,6 @@ app.use('/activateEMail',authRoutes)
 //   }
 // }
 
-
 // // Initializes passport and passport sessions
 // app.use(passport.initialize());
 // app.use(passport.session());
@@ -80,33 +106,6 @@ app.use('/activateEMail',authRoutes)
 //   res.redirect('/');
 // })
 
-
-
 /************END OF GOOGLE AUTHENTICATION */
-app.use('/login', loginRouter);
-app.use('/register', registerRouter);
-app.use('/changePassword', changePasswordRouter);
-
-
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
-});
-
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.json({error:"error"});
-});
-
-app.listen(5002, () => {
-  console.log('Server listening on port 5002')
-})
 
 module.exports = app;

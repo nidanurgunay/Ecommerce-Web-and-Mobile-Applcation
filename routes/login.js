@@ -2,7 +2,7 @@
 express = require('express');
 var router = express.Router();
 var bcrypt = require('bcryptjs');
-var User = require('../models/user');
+var User = require('../models/users');
 var jwt = require('jsonwebtoken');
 
 let d = new Date();
@@ -24,14 +24,12 @@ router.post("/", async (req, res, next) => {
             {
                 id: user._id,
                 email: user.email,
-                password:user.password
-
-               
+                password:user.password            
             },
-            JWT_SECRET,
+            JWT_SECRET, {expiresIn:'1h'}
         )
 
-        return res.json({ status: 'ok', token: token })
+        return res.json({ status: 'ok', token: token , email })
     }
 
     res.json({ status: 'error', error: 'Invalid username/password' })
