@@ -7,9 +7,19 @@ var basketSchema = new Schema(
       type: mongoose.SchemaTypes.ObjectId,
       ref: "users",
     },
-    productList: [
+    
+    productList:{
+      
+      totalprice:Number,
+        productArray: [
       {
-        quantity: Number, //37DEN 3 MÜ 5 Mİ
+        quantity:
+        {type: Number , 
+          required:true},//37DEN 3 MÜ 5 Mİ
+        price:{
+          type: Number , 
+          required:true
+        },
         product: {
           type: mongoose.SchemaTypes.ObjectId,
           ref: "products",
@@ -20,7 +30,7 @@ var basketSchema = new Schema(
         },
       },
     ],
-  },
+  }},
   {
     timestamps: true,
   }

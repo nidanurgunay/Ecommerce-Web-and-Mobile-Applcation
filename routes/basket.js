@@ -14,10 +14,28 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const basket = await Basket.add(req.body);
+  var basket = req.body;
+  
+  
+  var productList = basket.productList;
+  console.log(productList);
+  console.log(productList.productArray);
+  console.log(productList.productArray.length);
+  var totalprice = 0;
+  for (var i = 0; i < productList.productArray.length; i++) {
+    var qnty = productList.productArray[i].quantity;
+    console.log(qnty);
+ var price=productList.productArray[i].price;
+
+    
+    totalprice = totalprice + qnty*price ;
+  }
+  console.log(totalprice);
+  basket.productList.totalprice=totalprice;
+  basket = await Basket.add(basket);
   res.send(basket);
 });
-
+router.put("")
 router.delete("/:id", async (req, res) => {
   const basket = await Basket.del(req.params.id);
   res.send(basket);
