@@ -13,6 +13,12 @@ router.get("/:id", async (req, res) => {
   res.send(basket);
 });
 
+router.put("/addProduct",  async (req, res) =>{
+  const basket = await Basket.findByIdAndUpdate(req.body.id);
+  console.log(basket);
+  res.send(basket);
+})
+
 router.post("/", async (req, res) => {
   var basket = req.body;
   
@@ -35,7 +41,7 @@ router.post("/", async (req, res) => {
   basket = await Basket.add(basket);
   res.send(basket);
 });
-router.put("")
+
 router.delete("/:id", async (req, res) => {
   const basket = await Basket.del(req.params.id);
   res.send(basket);

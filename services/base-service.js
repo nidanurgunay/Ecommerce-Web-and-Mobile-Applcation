@@ -20,7 +20,6 @@ module.exports = class Service {
   }
 
   async findGenderProducts(gender) {
-    // 
     console.log(" hajkahajk" ,gender);
     console.log(typeof(gender));
     return this.model.find({gender:gender});
