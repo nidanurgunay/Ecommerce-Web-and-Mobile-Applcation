@@ -8,10 +8,9 @@ var basketSchema = new Schema(
       ref: "users",
     },
     
-    productList:{
-      
+    productList:{   
       totalprice:Number,
-        productArray: [
+      productArray: [
       {
         quantity:
         {type: Number , 
