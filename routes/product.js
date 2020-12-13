@@ -39,6 +39,11 @@ router.get("/gender/:gender", async (req, res) => {
   res.send(product);
 });
 
+router.get("/gender/:gender/category/:category", async (req, res) => {
+  var product = await Product.findCategoryGenderProducts(req.params.category,req.params.gender);
+  res.send(product);
+});
+
 router.post("/", async (req, res) => {
   var product = await Product.add(req.body);
   res.send(product);
