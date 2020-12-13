@@ -16,14 +16,14 @@ router.post("/", async (req, res) => {
   if (token) {
     jwt.verify(token, JWT_SECRET, async function (err, decodedToken) {
       if (err) {
-        return res.status(400).json({ error: "Incorrect or expired link" });
+        return res.json({ status:"error", error: "Incorrect or expired link" });
       }
 
       const { email, password, gender } = decodedToken;
 
       User.findOne({ email }).exec(async (err, user) => {
         if (user) {
-          return res.status(400).json({ error: "Email already exists" });
+          return res.json({ status:"error",error: "Email already exists" });
         }
 
         try {
@@ -38,7 +38,7 @@ router.post("/", async (req, res) => {
           await newUser
             .save()
             .then(() => {
-              res.json({ token: token2 });
+              res.json({message:"verified", token: token2 });
             })
             .catch((error) => {
               res.status(500).send("Kaydetme İşleminde Hata Oluştu.");

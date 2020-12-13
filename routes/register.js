@@ -24,16 +24,16 @@ router.post("/", async (req, res, next) => {
     User.findOne({ email: req.body.email })
         .then(async (user) => {
             if (user) {
-                return res.status(400).json({ email: "Email already exists" });
+                return res.json({ status:'error', error: "Email already exists" });
             } else {
 
                 const { email, password, gender } = req.body;
 
-                if (!password|| typeof password !== 'string') {
+                if (!password || typeof password !== 'string') {
                     return res.json({ status: 'error', error: 'Invalid password' })
                 }
 
-                if (password.length < 8) {
+                if (password.length < 7) {
                     return res.json({
                         status: 'error',
                         error: 'Password too small. Should be atleast 7 characters'
@@ -42,28 +42,28 @@ router.post("/", async (req, res, next) => {
 
                 try {
 
-                const token = jwt.sign({ email, password, gender }, JWT_SECRET, { expiresIn: '40m' });
-                console.log("token::", token)
-                const CLIENT_URL = 'http://localhost:5002'
-                const data = {
-                    from: 'noreply@ecommerce.com',
-                    to: email,
-                    subject: 'Account Activation Link',
-                    html: `
+                    const token = jwt.sign({ email, password, gender }, JWT_SECRET, { expiresIn: '40m' });
+                    console.log("token::", token)
+                    const CLIENT_URL = 'http://localhost:5002'
+                    const data = {
+                        from: 'noreply@ecommerce.com',
+                        to: email,
+                        subject: 'Account Activation Link',
+                        html: `
              <h2>Please copy and paste this token to activate your account</h2>
              <p> ${token} </p>
      
      `
-                };
-                mg.messages().send(data, function (error, body) {
-                    if (error) {
-                        return res.json({
-                            message: error.message
-                        })
-                    }
-                    return res.status(200).json({ message: 'Email has been send' ,token:token});
-                    
-                });
+                    };
+                    mg.messages().send(data, function (error, body) {
+                        if (error) {
+                            return res.json({
+                                message: error.message
+                            })
+                        }
+                        return res.status(200).json({ message: 'Email has been send', token: token });
+
+                    });
 
                 } catch {
                     res.status(500).send("hataa")
@@ -72,5 +72,5 @@ router.post("/", async (req, res, next) => {
         })
 });
 
-module.exports = router; 
+module.exports = router;
 
