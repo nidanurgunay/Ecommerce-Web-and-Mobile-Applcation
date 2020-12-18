@@ -6,7 +6,6 @@ var jwt = require('jsonwebtoken');
 
 router.use(bodyParser.json());
 
-let d = new Date();
 
 const JWT_SECRET = 'sdjkfh8923yssghjadgasjht#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk'
 

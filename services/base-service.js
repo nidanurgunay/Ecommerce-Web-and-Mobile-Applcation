@@ -18,6 +18,7 @@ module.exports = class Service {
   async findCategoryProducts(Category) {
     return this.model.find({category:Category});
   }
+  
   async findCategoryGenderProducts(Category, Gender) {
     return this.model.find({category:Category, gender:Gender});
   }

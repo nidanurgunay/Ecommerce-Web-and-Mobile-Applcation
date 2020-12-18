@@ -29,7 +29,7 @@ router.post("/", async (req, res, next) => {
             JWT_SECRET, {expiresIn:'1h'}
         )
 
-        return res.json({ status: 'ok', token: token , email })
+        return res.json({ status: 'ok', token: token , email , message:"valid"})
     }
 
     res.json({ status: 'error', error: 'Invalid username/password' })

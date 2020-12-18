@@ -7,9 +7,23 @@ var bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./helper/db")();
 var app = express();
-
+const multer = require('multer')
+const GridFsStorage = require('multer-gridfs-storage')
+const Grid = require('gridfs-stream')
+const crypto = require('crypto')//to generate file name
 app.use(bodyParser.json());
+var fs = require('fs');
+var storage = multer.diskStorage({
 
+  destination: (req, file, cb) => {
+      cb(null, 'uploads')
+  },
+  filename: (req, file, cb) => {
+      cb(null, file.fieldname + '-' + Date.now())
+  }
+});
+
+var upload = multer({ storage: storage });
 app.use(cors());
 
 /////ROUTES//////////
@@ -33,6 +47,12 @@ app.use("/basket", basketRouter);
 
 var orderRouter = require("./routes/order");
 app.use("/order", orderRouter);
+
+var adressRouter = require("./routes/adress");
+app.use("/adress", adressRouter);
+
+var commentRouter = require("./routes/comment");
+app.use("/comment", commentRouter);
 
 // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
