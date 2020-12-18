@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
 
       User.findOne({ email }).exec(async (err, user) => {
         if (user) {
-          return res.json({ status:"error",error: "Email already exists" });
+          return res.json({ status:"error", error: "Incorrect or expired link" });
         }
 
         try {

@@ -12,6 +12,10 @@ var basketSchema = new Schema(
       totalprice:Number,
       productArray: [
       {
+        size: {type: Number , 
+          required:true},
+        name: {type: String , 
+          required:true},
         quantity:
         {type: Number , 
           required:true},//37DEN 3 MÜ 5 Mİ
