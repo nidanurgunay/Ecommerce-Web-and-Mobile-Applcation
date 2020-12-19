@@ -4,6 +4,14 @@ var Schema = mongoose.Schema;
 
 var productSchema = new Schema(
   {
+    productManager: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "users",
+      required: true,
+    },
+    commentId:{ type: mongoose.SchemaTypes.ObjectId,
+      ref: "comments",
+      },
     name: String,
     brand: { type: String, required: true },
     category: { type: String, required: true },

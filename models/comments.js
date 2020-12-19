@@ -4,6 +4,15 @@ var Schema = mongoose.Schema;
 
 var commentSchema = new Schema(
   {
+    totalRate:{
+        default:3,
+        type: Number,
+        required: true,
+        min: 0,
+        max: 5,
+    },
+    totalcomment:{ default:1,
+        type: Number},
     isValid: {
       type: Boolean,
       default: false,
@@ -13,11 +22,7 @@ var commentSchema = new Schema(
       ref: "products",
       required: true,
     },
-    productmanager: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: "users",
-      required: true,
-    },
+ 
     comments: [
       {
         commentId: Schema.Types.ObjectId,
