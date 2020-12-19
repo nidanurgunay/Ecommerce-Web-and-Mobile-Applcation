@@ -19,6 +19,14 @@ var userSchema = new Schema(
     gender: {
       type: String,
     },
+    isProductManager: {
+      type: Boolean,
+      default: false,
+    },
+    isSalesManager: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
