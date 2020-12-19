@@ -40,7 +40,7 @@ router.get("/gender/:gender", async (req, res) => {
 });
 
 router.get("/gender/:gender/category/:category", async (req, res) => {
-  var product = await Product.findCategoryGenderProducts(req.params.category,req.params.gender);
+  var product = await Product.findCategoryGenderProducts(req.params.category, req.params.gender);
   res.send(product);
 });
 
