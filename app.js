@@ -13,6 +13,10 @@ app.use(bodyParser.json());
 var fs = require("fs");
 
 app.use(cors());
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 
 /////ROUTES//////////
 var loginRouter = require("./routes/login");
@@ -53,8 +57,8 @@ app.use(function (err, req, res, next) {
   res.json({ error: "error" });
 });
 
-app.listen(5005, () => {
-  console.log("Server listening on port 5002");
+app.listen(5010, () => {
+  console.log("Server listening on port 5010");
 });
 
 module.exports = app;

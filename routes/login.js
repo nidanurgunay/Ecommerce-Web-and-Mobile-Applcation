@@ -30,7 +30,7 @@ router.post("/", async (req, res, next) => {
       { expiresIn: "1h" }
     );
 
-    return res.json({ status: "ok", token: token, isProductManager, isSalesManager, email, message: "valid" });
+    return res.json({ status: "ok", token: token, isProductManager: user.isProductManager, isSalesManager:user.isSalesManager, email:email, message: "valid", userid:user._id });
   }
 
   res.json({ status: "error", error: "Invalid username/password" });

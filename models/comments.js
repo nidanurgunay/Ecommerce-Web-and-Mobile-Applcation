@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var commentSchema = new Schema(
   {
     totalRate:{
-        default:3,
+       
         type: Number,
         required: true,
         min: 0,
@@ -13,10 +13,7 @@ var commentSchema = new Schema(
     },
     totalcomment:{ default:1,
         type: Number},
-    isValid: {
-      type: Boolean,
-      default: false,
-    },
+  
     product: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: "products",
@@ -30,7 +27,10 @@ var commentSchema = new Schema(
           type: mongoose.SchemaTypes.ObjectId,
           ref: "users",
         },
-
+        isValid: {
+            type: Boolean,
+            default: false,
+          },
         rating: {
           type: Number,
           required: true,

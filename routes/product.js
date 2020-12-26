@@ -2,20 +2,7 @@ express = require("express");
 var router = express.Router();
 var bodyParser = require("body-parser");
 router.use(bodyParser.json());
-let d = new Date();
 
-// name: "Erkek Bot",
-// //seller: req.user._id,
-// image: "../images/erkekbot.jpeg",
-// price: 30,
-// category: "Bot",
-// brand: "sample brand",
-// countInStock: 0,
-// rate: 2,
-// description: "sample description",
-// countInStock: 10,
-// size: [40, 42, 44],
-// gender: "erkek",
 
 var Product = require("../services/products-service");
 
@@ -29,6 +16,11 @@ router.get("/:id", async (req, res) => {
   res.send(product);
 });
 
+router.get("filter", async (req, res) => {
+  console.log("iiii")
+  var product = await Product.sort();
+  res.send(product);
+});
 router.get("/category/:category", async (req, res) => {
   var product = await Product.findCategoryProducts(req.params.category);
   res.send(product);
@@ -40,7 +32,7 @@ router.get("/gender/:gender", async (req, res) => {
 });
 
 router.get("/gender/:gender/category/:category", async (req, res) => {
-  var product = await Product.findCategoryGenderProducts(req.params.category, req.params.gender);
+  var product = await Product.findCategoryGenderProducts(req.params.category,req.params.gender);
   res.send(product);
 });
 

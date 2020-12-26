@@ -3,7 +3,6 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var User = require('../models/users');
 var jwt = require('jsonwebtoken');
-
 router.use(bodyParser.json());
 
 
@@ -27,7 +26,7 @@ router.post("/", async (req, res, next) => {
             } else {
 
                 const { email, password, gender } = req.body;
-
+                console.log(email)
                 if (!password || typeof password !== 'string') {
                     return res.json({ status: 'error', error: 'Invalid password' })
                 }
@@ -38,21 +37,23 @@ router.post("/", async (req, res, next) => {
                         error: 'Password too small. Should be atleast 7 characters'
                     })
                 }
-
+        
+                const Passcode = Math.floor(100000 + Math.random() * 900000);
+                console.log(Passcode)
                 try {
 
-                    const token = jwt.sign({ email, password, gender }, JWT_SECRET, { expiresIn: '40m' });
-                    console.log("token::", token)
+                    const token = jwt.sign({ email, password, gender,Passcode }, JWT_SECRET, { expiresIn: '40m' });
+                    
                     const CLIENT_URL = 'http://localhost:5002'
                     const data = {
                         from: 'noreply@ecommerce.com',
                         to: email,
-                        subject: 'Account Activation Link',
+                        subject: 'Friendyol Account Activation',
                         html: `
-             <h2>Please copy and paste this token to activate your account</h2>
-             <p> ${token} </p>
-     
-     `
+                        <h2>Please copy and paste this 6 digit number to activate your account</h2>
+                        <p> ${Passcode} </p>
+                
+                `
                     };
                     mg.messages().send(data, function (error, body) {
                         if (error) {
@@ -60,7 +61,7 @@ router.post("/", async (req, res, next) => {
                                 message: error.message
                             })
                         }
-                        return res.status(200).json({ message: 'Email has been send', token: token });
+                        return res.status(200).json({ message: 'Email has been send', token: token , passcode:Passcode});
 
                     });
 

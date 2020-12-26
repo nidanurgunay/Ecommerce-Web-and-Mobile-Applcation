@@ -22,13 +22,12 @@ router.post("/", async (req, res) => {
   });
 
   router.put("/:Id", async (req, res) => {
-    var newadress = req.body;
+    var newadress = req.body.newadress;
     var adress = await Adress.find(req.params.Id);
     adress.adress=nrewadress.adress;
-;
     Adress.add(adress);
     res.send(adress);
-    
+   
   });
 
   router.delete("/:id", async (req, res) => {

@@ -1,5 +1,7 @@
 var mongoose = require("mongoose");
 var orderSchema = new mongoose.Schema({
+  status:{type:String,
+    enum: ['ordered', 'on the way', 'shipped']},
   user: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: "users",

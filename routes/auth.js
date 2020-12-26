@@ -6,12 +6,11 @@ var User = require("../models/users");
 var jwt = require("jsonwebtoken");
 router.use(bodyParser.json());
 
-let d = new Date();
 
 const JWT_SECRET = "sdjkfh8923yssghjadgasjht#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk";
 
 router.post("/", async (req, res) => {
-  const { token } = req.body;
+  const { token, passcode } = req.body;
 
   if (token) {
     jwt.verify(token, JWT_SECRET, async function (err, decodedToken) {
@@ -38,7 +37,7 @@ router.post("/", async (req, res) => {
           await newUser
             .save()
             .then(() => {
-              res.json({message:"verified", token: token2 });
+              res.json({message:"verified", token: token2 , email:email});
             })
             .catch((error) => {
               res.status(500).send("Kaydetme İşleminde Hata Oluştu.");

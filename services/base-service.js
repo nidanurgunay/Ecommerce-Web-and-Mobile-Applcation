@@ -3,6 +3,13 @@ module.exports = class Service {
     return this.model.find();
   }
 
+ 
+  async sort() {
+    console.log("sorttayım")
+  
+    return this.model.find().sort({rate: 1});
+  }
+
   async add(item) {
     return this.model.create(item);
   }

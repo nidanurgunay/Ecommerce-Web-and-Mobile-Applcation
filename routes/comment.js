@@ -52,6 +52,30 @@ router.put("/:id", async (req, res) => { //comment idsi gönderilmeli, product o
    
 });
 
+//validate comments
+router.put("/validate/:id", async (req, res) => { //comment idsi gönderilmeli, product objesinin içinde var
+    var Comments = await Comment.find(req.params.id);
+    var commentid = req.body.id;
+   console.log(commentid)
+    var comarray = Comments.comments;
+    console.log(comarray)
+    for (var i = 0; i < comarray.length; i++) {
+       
+        if (comarray[i]._id == commentid) {
+            console.log(comarray[i])
+           comarray[i].isValid =true;
+           Comments.comments = comarray;
+            break;
+        }
+    }
+
+
+    await Comment.add(Comments);
+    res.send(Comments);
+   
+});
+
+//to delete a comment
 router.put("/delete/:id", async (req, res) => {
     var Comments = await Comment.find(req.params.id);
     var deleteid = req.body.id;
@@ -72,7 +96,6 @@ router.put("/delete/:id", async (req, res) => {
         }
     }
     var product = await Product.find(Comments.product);
-
     product.rate=Comments.totalRate;
     await Product.add(product);
     await Comment.add(Comments);
