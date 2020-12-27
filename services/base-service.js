@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 module.exports = class Service {
   async findAll() {
     return this.model.find();
@@ -7,7 +9,12 @@ module.exports = class Service {
   async sort() {
     console.log("sorttayım")
   
-    return this.model.find().sort({rate: 1});
+     this.model.find().sort({rate: 1}).toArray(function(err, result){
+      if (err) throw err;      
+      else 
+      return result;
+
+    });
   }
 
   async add(item) {

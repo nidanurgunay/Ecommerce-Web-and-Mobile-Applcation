@@ -34,14 +34,19 @@ router.post("/", async (req, res) => {
           });
           const token2 = jwt.sign({ email, password, gender }, JWT_SECRET, { expiresIn: "40m" });
           console.log(newUser);
-          await newUser
-            .save()
-            .then(() => {
-              res.json({message:"verified", token: token2 , email:email});
-            })
-            .catch((error) => {
-              res.status(500).send("Kaydetme İşleminde Hata Oluştu.");
-            });
+          // await newUser
+          //   .save()
+          //   .then(() => {
+          //     res.json({message:"verified", token: token2 });
+          //   })
+          //   .catch((error) => {
+          //     res.status(500).send("Kaydetme İşleminde Hata Oluştu.");
+          //   });
+          var user = await newUser.save();
+          console.log(user)
+          res.send({message:"verified", token: token2 , id:user._id});
+          
+          
         } catch {
           res.status(500).send("hataa");
         }

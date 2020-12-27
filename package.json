@@ -5,7 +5,7 @@
   "scripts": {
     "devStart": "nodemon app.js",
     "test": "mocha --recursive --exit",
-    "tunnel": "ngrok http 5010"
+    "tunnel": "ngrok http 5009"
   },
   "author": "",
   "license": "ISC",
@@ -23,9 +23,11 @@
     "crypto": "^1.0.1",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
+    "express-handlebars": "^5.2.0",
     "express-jwt": "^6.0.0",
     "express-openid-connect": "^2.0.0",
     "express-validator": "^6.7.0",
+    "fs": "0.0.1-security",
     "gridfs-stream": "^1.1.1",
     "jade": "^1.11.0",
     "jsonwebtoken": "^8.5.1",

@@ -4,6 +4,7 @@ var bodyParser = require("body-parser");
 router.use(bodyParser.json());
 
 
+
 var Product = require("../services/products-service");
 
 router.get("/all", async (req, res) => {
@@ -16,7 +17,7 @@ router.get("/:id", async (req, res) => {
   res.send(product);
 });
 
-router.get("filter", async (req, res) => {
+router.get("/filter", async (req, res) => {
   console.log("iiii")
   var product = await Product.sort();
   res.send(product);

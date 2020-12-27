@@ -7,11 +7,12 @@ var bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./helper/db")();
 var app = express();
-
+const exhbs = require('express-handlebars');
 const crypto = require("crypto"); //to generate file name
 app.use(bodyParser.json());
 var fs = require("fs");
-
+app.engine("handlebars",exhbs());
+app.set("view engine","handlebars");
 app.use(cors());
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -57,8 +58,8 @@ app.use(function (err, req, res, next) {
   res.json({ error: "error" });
 });
 
-app.listen(5010, () => {
-  console.log("Server listening on port 5010");
+app.listen(5009, () => {
+  console.log("Server listening on port 5009");
 });
 
 module.exports = app;
