@@ -44,7 +44,7 @@ router.post("/", async (req, res) => {
           //   });
           var user = await newUser.save();
           console.log(user)
-          res.send({message:"verified", token: token2 , id:user._id});
+          res.send({message:"verified", token: token2 , id:user._id,  isProductManager: user.isProductManager, isSalesManager:user.isSalesManager,});
           
           
         } catch {
