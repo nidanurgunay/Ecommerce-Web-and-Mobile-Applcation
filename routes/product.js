@@ -42,7 +42,6 @@ router.get("/all/search/:what", async (req, res) => {
   var products = await Product.searchAll(req.params.what);
   res.send(products);
 });
-
 router.get("/category/:category/search/:what", async (req, res) => {
   var product = await Product.searchCategoryProducts(req.params.category, req.params.what);
   res.send(product);
@@ -120,44 +119,11 @@ router.get("/gender/:gender/category/:category", async (req, res) => {
   res.send(product);
 });
 
+router.post("/", async (req, res) => {
+  var product = await Product.add(req.body);
+  res.send(product);
+});
 
-
-// router.post("/",upload.single('productImage'),  async (req, res) => {
-
-//   var product = await Product.add(req.body);
-//   res.send(product);
-// });
-// router.post("/", upload.single('productImage'), (req, res, next) => {
-//   const product = new Product({
-//     _id: new mongoose.Types.ObjectId(),
-//     name: req.body.name,
-//     price: req.body.price,
-//     productImage: req.file.path 
-//   });
-//   product
-//     .save()
-//     .then(result => {
-//       console.log(result);
-//       res.status(201).json({
-//         message: "Created product successfully",
-//         createdProduct: {
-//             name: result.name,
-//             price: result.price,
-//             _id: result._id,
-//             request: {
-//                 type: 'GET',
-//                 url: "http://localhost:3000/products/" + result._id
-//             }
-//         }
-//       });
-//     })
-//     .catch(err => {
-//       console.log(err);
-//       res.status(500).json({
-//         error: err
-//       });
-//     });
-// });
 router.delete("/:id", async (req, res) => {
   var product = await Product.del(req.params.id);
   res.send(product);
