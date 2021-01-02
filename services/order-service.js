@@ -1,5 +1,5 @@
 const BaseService = require("./base-service");
-const Basket = require("../models/order");
+const Order = require("../models/orders");
 
 class OrderService extends BaseService {
   model = Order;
