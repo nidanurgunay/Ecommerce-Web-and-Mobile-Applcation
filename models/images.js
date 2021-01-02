@@ -4,7 +4,11 @@ var Schema = mongoose.Schema;
 
 var imageSchema = new Schema(
   {
-  
+    Img: {
+        data: Buffer,
+        type: Buffer,
+        contentType: String
+      }
   
   },
   { timestamps: true }

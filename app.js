@@ -49,7 +49,12 @@ app.use(cors());
 //
 const morgan = require("morgan");
 app.use(morgan("devStart"));
-app.use('./public/images', express.static('./public/images'));
+app.use( express.static('src'));
+app.use( express.static(__dirname + '/src'));
+app.use( express.static(__dirname + '/images'));
+app.use( express.static(__dirname + './images'));
+
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
