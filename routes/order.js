@@ -4,7 +4,7 @@ var bodyParser = require("body-parser");
 router.use(bodyParser.json());
 let d = new Date();
 
-var Order = require("../services/products-service");
+var Order = require("../services/order-service");
 
 router.get("/all", async (req, res) => {
   var orders = await Order.findAll();
@@ -26,4 +26,10 @@ router.delete("/:id", async (req, res) => {
   res.send(order);
 });
 
+router.put("/:id", async (req, res) => {
+  var order = await Order.find(req.params.id);
+  order.status = req.body.status;
+  var order1 = await Order.add(order);
+  res.send(order1);
+});
 module.exports = router;

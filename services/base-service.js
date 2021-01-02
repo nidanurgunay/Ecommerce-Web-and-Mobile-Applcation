@@ -1,22 +1,21 @@
 const { response } = require("express");
+const users = require("../models/users");
 
 module.exports = class Service {
-
   async findAll() {
     return this.model.find();
   }
-//search all
+  //search all
   async searchAll(m) {
-    return this.model.find(({description:{'$regex' : m, '$options' : 'i'}}));
+    return this.model.find({ description: { $regex: m, $options: "i" } });
   }
-//sort all
-  async sortAllrate(What) {    
-    
-  return this.model.find().sort({rate: What});
+  //sort all
+  async sortAllrate(What) {
+    return this.model.find().sort({ rate: What });
   }
-  async sortAllprice(What) {    
-    return this.model.find().sort({newprice: What});
-    }
+  async sortAllprice(What) {
+    return this.model.find().sort({ newprice: What });
+  }
 
   async add(item) {
     return this.model.create(item);
@@ -30,49 +29,47 @@ module.exports = class Service {
     return this.model.findById(itemId);
   }
 
-
-
   async findCategoryProducts(Category) {
-    return this.model.find({category:Category});
+    return this.model.find({ category: Category });
   }
-  async findCategoryProductsrate(Category,What) {
-    return this.model.find({category:Category}).sort({ rate: What});
+  async findCategoryProductsrate(Category, What) {
+    return this.model.find({ category: Category }).sort({ rate: What });
   }
-  async findCategoryProductsprice(Category,What) {
-    return this.model.find({category:Category}).sort({ newprice: What});
+  async findCategoryProductsprice(Category, What) {
+    return this.model.find({ category: Category }).sort({ newprice: What });
   }
-  async searchCategoryProducts(Category,m) {
-    return this.model.find(({category:Category,description:{'$regex' : m, '$options' : 'i'}}));
-
-
+  async searchCategoryProducts(Category, m) {
+    return this.model.find({ category: Category, description: { $regex: m, $options: "i" } });
   }
   async findGenderProducts(gender) {
-    return this.model.find({gender:gender});
+    return this.model.find({ gender: gender });
   }
- async findGenderProductsprice(gender,What) {
-    return this.model.find({gender:gender}).sort({ rate: What});
+  async findGenderProductsprice(gender, What) {
+    return this.model.find({ gender: gender }).sort({ rate: What });
   }
-  async findGenderProductsrate(gender,What) {
-    return this.model.find({gender:gender}).sort({ newprice: What});
+  async findGenderProductsrate(gender, What) {
+    return this.model.find({ gender: gender }).sort({ newprice: What });
   }
-  async searchGenderProducts(Gender,m) {
-    return this.model.find(({gender:Gender,description:{'$regex' : m, '$options' : 'i'}}));
+  async searchGenderProducts(Gender, m) {
+    return this.model.find({ gender: Gender, description: { $regex: m, $options: "i" } });
   }
 
+  async findAddressUser(addressuser) {
+    return this.model.find({ user: addressuser });
+  }
 
- 
   async findCategoryGenderProducts(Category, Gender) {
-    return this.model.find({category:Category, gender:Gender});
+    return this.model.find({ category: Category, gender: Gender });
   }
   async findCategoryGenderProductsrate(Category, Gender, What) {
-console.log(What)
-    return this.model.find({category:Category, gender:Gender}).sort({ rate: What});
+    console.log(What);
+    return this.model.find({ category: Category, gender: Gender }).sort({ rate: What });
   }
   async findCategoryGenderProductsprice(Category, Gender, What) {
-    console.log(What)
-        return this.model.find({category:Category, gender:Gender}).sort({ newprice: What});
-      }
-      async searchCategoryGenderProducts(Category,Gender,m) {
-        return this.model.find(({category:Category, gender:Gender,description:{'$regex' : m, '$options' : 'i'}}));
-      }
+    console.log(What);
+    return this.model.find({ category: Category, gender: Gender }).sort({ newprice: What });
+  }
+  async searchCategoryGenderProducts(Category, Gender, m) {
+    return this.model.find({ category: Category, gender: Gender, description: { $regex: m, $options: "i" } });
+  }
 };
