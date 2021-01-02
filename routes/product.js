@@ -51,7 +51,7 @@ router.get("/gender/:gender/search/:what", async (req, res) => {
   res.send(product);
 });
 router.get("/gender/:gender/category/:category/search/:what", async (req, res) => {
-  var product = await Product.searchCategoryGenderProducts(req.params.category,req.params.gender,req.params.what);
+  var product = await Product.searchCategoryGenderProducts(req.params.category, req.params.gender, req.params.what);
   res.send(product);
 });
 
@@ -66,19 +66,19 @@ router.get("/all/rate/:what", async (req, res) => {
 });
 
 router.get("/category/:category/rate/:what", async (req, res) => {
-  var product = await Product.findCategoryProductsrate(req.params.category,req.params.what);
+  var product = await Product.findCategoryProductsrate(req.params.category, req.params.what);
   res.send(product);
 });
 router.get("/category/:category/price/:what", async (req, res) => {
-  var product = await Product.findCategoryProductsprice(req.params.category,req.params.what);
+  var product = await Product.findCategoryProductsprice(req.params.category, req.params.what);
   res.send(product);
 });
 router.get("/gender/:gender/price/:what", async (req, res) => {
-  var product = await Product.findGenderProductsprice(req.params.gender,req.params.what);
+  var product = await Product.findGenderProductsprice(req.params.gender, req.params.what);
   res.send(product);
 });
 router.get("/gender/:gender/rate/:what", async (req, res) => {
-  var product = await Product.findGenderProductsrate(req.params.gender,req.params.what);
+  var product = await Product.findGenderProductsrate(req.params.gender, req.params.what);
   res.send(product);
 });
 router.get("/gender/:gender", async (req, res) => {
@@ -87,17 +87,13 @@ router.get("/gender/:gender", async (req, res) => {
 });
 
 router.get("/gender/:gender/category/:category/rate/:what", async (req, res) => {
-  var product = await Product.findCategoryGenderProductsrate(req.params.category,req.params.gender,req.params.what);
+  var product = await Product.findCategoryGenderProductsrate(req.params.category, req.params.gender, req.params.what);
   res.send(product);
 });
 router.get("/gender/:gender/category/:category/price/:what", async (req, res) => {
-  var product = await Product.findCategoryGenderProductsprice(req.params.category,req.params.gender,req.params.what);
+  var product = await Product.findCategoryGenderProductsprice(req.params.category, req.params.gender, req.params.what);
   res.send(product);
 });
-
-
-
-
 
 router.get("/:id", async (req, res) => {
   var product = await Product.find(req.params.id);
@@ -115,13 +111,28 @@ router.get("/gender/:gender", async (req, res) => {
 });
 
 router.get("/gender/:gender/category/:category", async (req, res) => {
-  var product = await Product.findCategoryGenderProducts(req.params.category,req.params.gender);
+  var product = await Product.findCategoryGenderProducts(req.params.category, req.params.gender);
   res.send(product);
 });
 
 router.post("/", async (req, res) => {
   var product = await Product.add(req.body);
   res.send(product);
+});
+
+router.put("/:id", async (req, res) => {
+  var product = await Product.find(req.params.id);
+  product.name = req.body.name;
+  product.size = req.body.size;
+  product.brand = req.body.brand;
+  product.category = req.body.category;
+  product.description = req.body.description;
+  product.gender = req.body.gender;
+
+  console.log(req.body);
+  console.log(product);
+  var product1 = await Product.add(product);
+  res.send(product1);
 });
 
 router.delete("/:id", async (req, res) => {

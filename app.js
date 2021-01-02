@@ -7,15 +7,12 @@ var bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./helper/db")();
 var app = express();
-const exhbs = require('express-handlebars');
 const crypto = require("crypto"); //to generate file name
 app.use(bodyParser.json());
 var fs = require("fs");
-app.engine("handlebars",exhbs());
-app.set("view engine","handlebars");
+
+app.set("view engine", "handlebars");
 app.use(cors());
-
-
 
 // const multer = require("multer");
 
@@ -49,16 +46,13 @@ app.use(cors());
 //
 const morgan = require("morgan");
 app.use(morgan("devStart"));
-app.use('./public/images', express.static('./public/images'));
+app.use("./public/images", express.static("./public/images"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   if (req.method === "OPTIONS") {
     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
     return res.status(200).json({});
@@ -78,10 +72,8 @@ app.use("/changePassword", changePasswordRouter);
 var authRoutes = require("./routes/auth");
 app.use("/activateEmail", authRoutes);
 
-
 var imageRoutes = require("./routes/image");
 app.use("/image", imageRoutes);
-
 
 var productRouter = require("./routes/product");
 app.use("/product", productRouter);
@@ -112,8 +104,8 @@ app.use((error, req, res, next) => {
   res.status(error.status || 500);
   res.json({
     error: {
-      message: error.message
-    }
+      message: error.message,
+    },
   });
 });
 app.listen(5008, () => {
