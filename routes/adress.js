@@ -17,8 +17,8 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
     var adress = req.body;
-    adress = await Adress.add(adress);
-    res.send(adress);
+    var Adress = await Adress.add(adress);
+    res.send(Adress);
   });
 
   router.put("/:Id", async (req, res) => {
