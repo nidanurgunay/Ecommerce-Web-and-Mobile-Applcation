@@ -46,16 +46,12 @@ app.use(cors());
 //
 const morgan = require("morgan");
 app.use(morgan("devStart"));
-<<<<<<< HEAD
 app.use( express.static('src'));
 app.use( express.static(__dirname + '/src'));
 app.use( express.static(__dirname + '/images'));
 app.use( express.static(__dirname + './images'));
 
 
-=======
-app.use("./public/images", express.static("./public/images"));
->>>>>>> 762c442e9349861b1702948ce7deb1e1127fb4d0
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 

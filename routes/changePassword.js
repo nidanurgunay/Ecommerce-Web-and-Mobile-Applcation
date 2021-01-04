@@ -6,7 +6,10 @@ var User = require('../models/users');
 var jwt = require('jsonwebtoken');
 const passport = require('passport');
 router.use(bodyParser.json());
-
+const mailgun = require("mailgun-js");
+const DOMAIN = 'sandbox387fdc914bd44fb7a7ff7c5cf325a53a.mailgun.org';
+const API_KEY = '75ed49265d30f00af00ff7ef24c28fba-360a0b2c-97875b1a'
+const mg = mailgun({ apiKey: API_KEY, domain: DOMAIN });
 
 const JWT_SECRET = 'sdjkfh8923ysgdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk';
 
@@ -36,7 +39,7 @@ router.post('/', async (req, res) => {
 			return res.json({ status: "error", error: "Invalid email/password" });
 		}
 		else if (await bcrypt.compare(oldpasswords, user.password)) {
-			console.log(" ompare")
+
 			const npassword = await bcrypt.hash(plainTextPassword, 10)
 			const _id = user._id;
 			console.log(npassword);
@@ -45,7 +48,7 @@ router.post('/', async (req, res) => {
 
 				{ "password": npassword }
 			)
-			
+
 			const token = jwt.sign(
 				{
 					id: user._id,
@@ -57,7 +60,31 @@ router.post('/', async (req, res) => {
 				JWT_SECRET,
 				{ expiresIn: "1h" }
 			);
-			res.json({ status: 'passwordChanged' ,token:token})
+
+
+
+			const CLIENT_URL = 'http://localhost:5002'
+			const data = {
+				from: 'noreply@ecommerce.com',
+				to: user.email,
+				subject: 'Friendyol Password Change',
+				html: `
+				<h2>This is an email for you to inform that you have recently changed your password</h2>
+  
+		`
+
+			};
+			mg.messages().send(data, function (error, body) {
+				if (error) {
+					return res.json({
+						message: error.message
+					})
+				}
+				return res.status(200).json({ message: 'PasswordChange Email has been send' });
+
+			});
+			res.json({ status: 'passwordChanged', token: token })
+
 			// return res.json({ status: "ok", token: token, isProductManager: user.isProductManager, isSalesManager:user.isSalesManager, email:email, message: "valid", userid:user._id });
 		} res.json({ status: "error", error: "Invalid Oldpassword" });
 
@@ -66,51 +93,6 @@ router.post('/', async (req, res) => {
 		res.json({ status: 'error', error: ';))' })
 	}
 
-	// 		const { email, password, gender } = decodedToken;
-	// 		const user = await User.findOne({ email }).lean();
-	// 		if (await bcrypt.compare(password, oldpassword)) {
-	// 			const token2 = jwt.sign(
-	// 				{
-	// 				  id: user._id,
-	// 				  email: user.email,
-	// 				  password: user.password,
-	// 				},
-	// 				JWT_SECRET,
-	// 				{ expiresIn: "1h" }
-	// 			  );
-	// 			  return res.json({ status: "ok", token: token, isProductManager: user.isProductManager, isSalesManager:user.isSalesManager, email:email, message: "valid", userid:user._id });
 
-	// 		}
-
-
-
-	// 		User.findOne({ email }).exec(async (err, user) => {
-	// 		  if (user) {
-	// 			return res.json({ status:"error", error: "Incorrect or expired link" });
-	// 		  }try {
-	// 			const hashedoldpassword = await bcrypt.hash(password, 10);
-
-
-
-
-	// 			)
-	//     console.log(user)
-	// 	const _id = user.id
-	// 	token.jwt.verify
-	// 	const npassword = await bcrypt.hash(plainTextPassword, 10)
-
-	//     console.log(npassword);
-	// 	await User.findByIdAndUpdate(
-	// 		{ _id },
-
-	// 		{ "password": npassword} 
-
-
-	// 	)
-	// 	res.json({ status: 'ok' })
-	// } catch (error) {
-	// 	console.log(error)
-	// 	res.json({ status: 'error', error: ';))' })
-	// }
 })
 module.exports = router;
