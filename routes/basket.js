@@ -37,10 +37,11 @@ router.post("/", async (req, res) => {
 
 router.put("/:BasketId", async (req, res) => {
   var arrayelement = req.body;
+  console.log(req.body)
   var basket = await Basket.find(req.params.BasketId);
   console.log("basket", basket);
   var array = basket.productList.productArray;
-  basket.productList.totalprice = basket.productList.totalprice + arrayelement.newprice * arrayelement.quantity;
+  basket.productList.totalprice = basket.productList.totalprice + arrayelement.price * arrayelement.quantity;
   array.push(arrayelement);
   basket.productList.productArray = array;
   console.log(array);
@@ -63,7 +64,7 @@ router.put("/byOne/:BasketId", async (req, res) => {
     if (productId == array[i].product) {
       console.log("if içerde")
       array[i].quantity = array[i].quantity + 1;
-      basket.productList.totalprice = basket.productList.totalprice + array[i].newprice;
+      basket.productList.totalprice = basket.productList.totalprice + array[i].price;
       basket.productList.productArray = array;
       ifexist = true;
       Basket.add(basket);
@@ -88,7 +89,7 @@ router.put("/delete/:BasketId", async (req, res) => {
   for (var i = 0; array.length > i; i++) {
     if (array[i].product == productId) {
      
-      basket.productList.totalprice = basket.productList.totalprice - array[i].quantity * array[i].newprice
+      basket.productList.totalprice = basket.productList.totalprice - array[i].quantity * array[i].price
       array.splice(i, 1);
       basket.productList.productArray = array;
       basket = await Basket.add(basket);
@@ -109,7 +110,7 @@ router.put("/delete/byOne/:BasketId", async (req, res) => {
       
       if (array[i].quantity > 1) {
         array[i].quantity = array[i].quantity - 1;
-        basket.productList.totalprice = basket.productList.totalprice - array[i].newprice
+        basket.productList.totalprice = basket.productList.totalprice - array[i].price
         basket.productList.productArray = array;
 
         basket = await Basket.add(basket);
@@ -118,7 +119,7 @@ router.put("/delete/byOne/:BasketId", async (req, res) => {
       }
       else{ //if quantity is 1 and whole product need to be removed from array
        
-        basket.productList.totalprice = basket.productList.totalprice - array[i].newprice
+        basket.productList.totalprice = basket.productList.totalprice - array[i].price
         array.splice(i, 1);
         basket.productList.productArray = array;
       

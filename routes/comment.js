@@ -20,6 +20,7 @@ router.post("/", async (req, res) => {
     console.log(req.body)
 
     var comment = await Comment.add(req.body);
+    console.log(comment);
     var product = await Product.find(req.body.product);
     
     product.commentId=comment._id;
