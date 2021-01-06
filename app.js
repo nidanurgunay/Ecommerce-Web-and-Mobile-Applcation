@@ -77,8 +77,7 @@ app.use("/changePassword", changePasswordRouter);
 var authRoutes = require("./routes/auth");
 app.use("/activateEmail", authRoutes);
 
-var imageRoutes = require("./routes/image");
-app.use("/image", imageRoutes);
+
 
 var productRouter = require("./routes/product");
 app.use("/product", productRouter);
@@ -94,6 +93,9 @@ app.use("/adress", adressRouter);
 
 var commentRouter = require("./routes/comment");
 app.use("/comment", commentRouter);
+
+var userRouter = require("./routes/user");
+app.use("/user", userRouter);
 
 // app.use(function (err, req, res, next) {
 //   // set locals, only providing error in development

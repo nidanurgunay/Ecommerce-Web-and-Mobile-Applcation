@@ -40,34 +40,7 @@ router.post("/", async (req, res, next) => {
         
                 const Passcode = Math.floor(100000 + Math.random() * 900000);
                 console.log(Passcode)
-                try {
-
-                    const token = jwt.sign({ email, password, gender,Passcode }, JWT_SECRET, { expiresIn: '40m' });
-                    
-                    const CLIENT_URL = 'http://localhost:5002'
-                    const data = {
-                        from: 'noreply@ecommerce.com',
-                        to: email,
-                        subject: 'Friendyol Account Activation',
-                        html: `
-                        <h2>Please copy and paste this 6 digit number to activate your account</h2>
-                        <p> ${Passcode} </p>
-                
-                `
-                    };
-                    mg.messages().send(data, function (error, body) {
-                        if (error) {
-                            return res.json({
-                                message: error.message
-                            })
-                        }
-                        return res.status(200).json({ message: 'Email has been send', token: token , passcode:Passcode});
-
-                    });
-
-                } catch {
-                    res.status(500).send("hataa")
-                }
+                 
             }
         })
 });

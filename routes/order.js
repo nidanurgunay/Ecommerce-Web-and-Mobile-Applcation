@@ -13,7 +13,7 @@ const mg = mailgun({ apiKey: API_KEY, domain: DOMAIN });
 
 var Order = require("../services/order-service");
 const Basket = require("../services/basket-service");
-
+const Address = require("../services/adress-service");
 router.get("/all", async (req, res) => {
   var orders = await Order.findAll();
   res.send(orders);
@@ -35,36 +35,39 @@ router.post("/", async (req, res) => {
     const parray=basket.productList.productArray;
     console.log(parray)
 
-    
-    const CLIENT_URL = 'http://localhost:5002'
+    var address = await Address.find(order.address);
+    const CLIENT_URL = 'http://localhost:5008'
     const data = {
         from: 'noreply@ecommerce.com',
         to: email,
         subject: 'Friendyol Order Email',
-        message: `
+        html: `
         <h2>Thank you for shopping with FRIENDYOL</h2>
         <p> Your order status is "${order.status}" </p><br>
         <p> Your have purchased "${parray.length} items" </p><br>
-        {% for item in parray %}
        
-        <span>{{ item.name }}</span>  
-       
-        <span>Price: ${{ }}</span>  
-        <span>Qty: {{ item.quantity }}</span>  		
-      
-      {% endfor %}
-       
-      
 `
 
     };
+    parray.forEach((element) => {
+      data.html = data.html + `<span>Name: ${element.name}</span><br>`;
+      data.html = data.html + `<span>Price: ${element.price} TL</span><br>`;
+      data.html = data.html + `<span>Size: ${element.size}</span><br>`;
+      data.html =
+        data.html + `<span>Quantity: ${element.quantity}</span><br><br>`;
+    });
+    data.html = data.html + `<span>Total Price:$ ${tp}</span><br><br>`;
+    data.html =
+      data.html +
+      `<span>You can track your order with this id ${order._id}</span><br><br>`;
+    data.html = data.html + `<span>Address: ${address}</span><br><br>`;
     mg.messages().send(data, function (error, body) {
         if (error) {
             return res.json({
                 message: error.message
             })
         }
-        return res.status(200).json({ message: 'Order Email has been send'});
+        return res.status(200).json({ message: 'Order Email has been send', order:order});
 
     });
 
@@ -72,7 +75,7 @@ router.post("/", async (req, res) => {
     res.status(500).send("email hataa")
 }
 
-  res.send(order);
+ 
 });
 
 router.delete("/:id", async (req, res) => {

@@ -10,7 +10,8 @@ var userSchema = new Schema(
       minlength: 2,
       unique: true,
     },
-
+    adressId:{ type: mongoose.SchemaTypes.ObjectId,
+      ref: "adresses",},
     password: {
       type: String,
       required: true,
@@ -32,4 +33,4 @@ var userSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("user", userSchema);
+module.exports = mongoose.model("User", userSchema);
