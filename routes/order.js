@@ -23,6 +23,12 @@ router.get("/:id", async (req, res) => {
   var order = await Order.find(req.params.id);
   res.send(order);
 });
+router.get("user/:id", async (req, res) => {
+  
+
+  var order = await Order.findprevOrder(req.params.id);
+  res.send(order);
+});
 
 router.post("/", async (req, res) => {
 
@@ -56,7 +62,7 @@ router.post("/", async (req, res) => {
       data.html =
         data.html + `<span>Quantity: ${element.quantity}</span><br><br>`;
     });
-    data.html = data.html + `<span>Total Price:$ ${tp}</span><br><br>`;
+    data.html = data.html + `<span>Total Price:$${tp}</span><br><br>`;
     data.html =
       data.html +
       `<span>You can track your order with this id ${order._id}</span><br><br>`;
