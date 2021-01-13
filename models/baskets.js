@@ -23,6 +23,7 @@ var basketSchema = new Schema(
           type: Number , 
           required:true
         },
+        image: [String],
         product: {
           type: mongoose.SchemaTypes.ObjectId,
           ref: "products",

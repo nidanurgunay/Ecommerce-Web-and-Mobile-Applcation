@@ -23,9 +23,8 @@ router.get("/:id", async (req, res) => {
   var order = await Order.find(req.params.id);
   res.send(order);
 });
-router.get("user/:id", async (req, res) => {
-  
-
+router.get("/user/:id", async (req, res) => {
+console.log(req.params.id)
   var order = await Order.findprevOrder(req.params.id);
   res.send(order);
 });
@@ -34,14 +33,17 @@ router.post("/", async (req, res) => {
 
   try {
     var email = req.body.email;
+    console.log("req", req.body)
     var order = await Order.add(req.body);
     var basket = await Basket.find(order.basket);
-    console.log(basket);
+    console.log("baskett",basket);
     const tp=basket.productList.totalprice;
     const parray=basket.productList.productArray;
-    console.log(parray)
+    console.log("parray", parray)
+    console.log("order.address", order.address)
 
-    var address = await Address.find(order.address);
+    var address = await Address.find(req.body.address);
+    console.log(address)
     const CLIENT_URL = 'http://localhost:5008'
     const data = {
         from: 'noreply@ecommerce.com',
@@ -66,7 +68,7 @@ router.post("/", async (req, res) => {
     data.html =
       data.html +
       `<span>You can track your order with this id ${order._id}</span><br><br>`;
-    data.html = data.html + `<span>Address: ${address}</span><br><br>`;
+    data.html = data.html + `<span>Address: ${address.adress}</span><br><br>`;
     mg.messages().send(data, function (error, body) {
         if (error) {
             return res.json({

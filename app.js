@@ -107,14 +107,29 @@ app.use("/user", userRouter);
 //   console.log(err);
 //   res.json({ error: "error" });
 // });
-app.use((error, req, res, next) => {
-  res.status(error.status || 500);
-  res.json({
-    error: {
-      message: error.message,
-    },
-  });
-});
+
+// const moesif = require('moesif-nodejs');
+
+// const moesifMiddleware = moesif({
+//   applicationId: 'eyJhcHAiOiIxOTg6NzIwIiwidmVyIjoiMi4wIiwib3JnIjoiODg6MTI2MSIsImlhdCI6MTYwOTQ1OTIwMH0.1dK6zn1-DvOHOVZhtXAmHQukHzj9-qKg8YG9SmJgxoU',
+
+//   identifyUser: function (req, res) {
+//     return req.user ? req.user.id : undefined;
+//   },
+// });
+
+// app.use(moesifMiddleware);
+
+
+// moesifMiddleware.startCaptureOutgoing();
+// app.use((error, req, res, next) => {
+//   res.status(error.status || 500);
+//   res.json({
+//     error: {
+//       message: error.message,
+//     },
+//   });
+// });
 app.listen(5008, () => {
   console.log("Server listening on port 5008");
 });

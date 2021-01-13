@@ -14,7 +14,10 @@ var orderSchema = new mongoose.Schema({
   },
   address: {
     type: mongoose.SchemaTypes.ObjectId,
-    ref: "addresses",
+    ref: "adresses",
+  },
+  addresss: {
+    type:String,
   },
   creditCardNo: Number,
   cvv: Number,

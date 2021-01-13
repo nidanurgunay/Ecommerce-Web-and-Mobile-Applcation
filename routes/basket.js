@@ -10,6 +10,7 @@ router.get("/all", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
+  console.log(req.params.id)
   const basket = await Basket.find(req.params.id);
   res.send(basket);
 });
