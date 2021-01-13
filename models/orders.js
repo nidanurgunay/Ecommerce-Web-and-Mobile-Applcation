@@ -19,8 +19,8 @@ var orderSchema = new mongoose.Schema({
   addresss: {
     type:String,
   },
-  creditCardNo: Number,
-  cvv: Number,
+  creditCardNo: String,
+  cvv: String,
   creditExpirationDate:String, // date nasıl ona bakın...
 
 
